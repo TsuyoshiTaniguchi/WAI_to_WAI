@@ -1,4 +1,4 @@
-# WAItoWAI
+# WAI to WAI
 
 ## サイト概要
 
