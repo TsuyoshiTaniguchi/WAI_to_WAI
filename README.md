@@ -33,7 +33,6 @@
 
 ## 使用素材
 - フリーアイコン: Material Icons, FontAwesome  
-- フォント: Google Fonts（Poppins, Montserrat）  
 - 画像素材: Unsplash, Pixabay  
 - 著作権について:  
   著作権を考慮し、架空のデータを扱う予定です。  
