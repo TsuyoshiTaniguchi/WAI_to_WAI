@@ -1,0 +1,75 @@
+<h1>新規グループ作成</h1>
+<p>ここでは、新しい公式グループを作成できます。必要な情報を入力してください。</p>
+
+<%= form_with model: @group, url: admin_groups_path, method: :post do |f| %>
+
+  <% if @group.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>入力エラーがあります：</h4>
+      <ul>
+        <% @group.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- 🔹 グループ基本情報 -->
+
+  <h2>グループ情報</h2>
+
+  <div class="mb-3">
+    <%= f.label :name, "グループ名" %>
+    <%= f.text_field :name, class: "form-control", required: true %>
+    <% if @group.errors[:name].any? %>
+      <div class="text-danger"><%= @group.errors[:name].first %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, "グループの説明" %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+  <%= f.label :image, "グループの画像" %>
+  <%= f.file_field :group_image, class: "form-control" %>
+  </div>
+
+  <!-- 🔹 グループのカテゴリ -->
+  <h2>グループの種類</h2>
+  <div class="mb-3">
+  <label for="group_category">グループのカテゴリ</label>
+  <%= f.select :category, [["公式グループ", "official_label"], ["ユーザー作成グループ", "user_created_label"]], {}, class: "form-control" %>
+  <%= f.hidden_field :category, value: @group.category %> <%# ✅ 追加 %>
+  </div>
+
+  <!-- 🔹 公開範囲と参加ルール -->
+  <h2>参加ルール</h2>
+  <div class="mb-3">
+    <%= f.label :join_policy, "参加ルール" %>
+    <%= f.select :join_policy, [
+      ["誰でも参加可能", "open"], 
+      ["管理者のみ参加を許可", "admin_only"], 
+      ["承認制", "invite_only"]
+    ], prompt: "選択してください", class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :privacy, "投稿の公開範囲" %>
+    <%= f.select :privacy, [
+      ["公開", "public_visibility"], 
+      ["管理者のみ", "private_visibility"], 
+      ["メンバーのみ", "restricted_visibility"]
+    ], prompt: "選択してください", class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :location, "活動場所" %>
+    <%= f.text_field :location, class: "form-control", placeholder: "例: 東京, 大阪" %>
+  </div>
+
+  <%= f.submit "グループを作成", class: "btn btn-success mt-3" %>
+<% end %>
+
+<%= link_to "グループ管理ページへ戻る", admin_groups_path, class: "btn btn-secondary mt-3" %>
